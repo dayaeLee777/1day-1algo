@@ -21,7 +21,8 @@
 
 #### 구현
 1. id_list 배열에 따라 `reporterArr`, `singoArr` 초기화
-2-1. `reporterArr`에 `reporter`-`singo` set이 존재하면 이미 신고한 사람이 있는 것이므로 continue
+2. `reporterArr`에 `reporter`-`singo` set의 존재여부 확인</br>
+2-1. 존재하면 이미 신고한 사람이 있는 것이므로 continue </br>
 2-2. 존재하지 않으면 신고당한 사람의 카운트가 증가해야 하기 때문에 `singoArr`에 `singo`에 해당하는 value값에 1을 더함
 3. singoArr에서 신고당한 횟수가 K보다 작으면 해당 `singo`는 `reporterArr`에서 제거
 4. `id_list`에 해당하는 `reporterArr`의 갯수를 `answer`에 저장  <br/><br/>
@@ -29,6 +30,6 @@
 
 ### ✏️ 마치며
 ---
-HashMap, Set의 특성을 이해하여 적합한 문제에 적용할 수 있는 능력을 향상해야할 것 같다. 
-처음에 이중for문만 돌리고.. 문제의 특성에 맞는 자료구조를 생각해내지 못해 시간낭비(?)를 했다. 
+HashMap, Set의 특성을 이해하여 적합한 문제에 적용할 수 있는 능력을 향상해야할 것 같다. <br/>
+처음에 이중for문만 돌리고.. 문제의 특성에 맞는 자료구조를 생각해내지 못해 시간낭비(?)를 했다. <br/>
 또한, 각 자료구조가 가지고있는 메소드를 정확히 알고 IDE없이 코드를 작성하는 연습을 많이 해야할 것 같다!
