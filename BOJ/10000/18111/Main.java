@@ -7,8 +7,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	static int N, M, B, max, map[][], time;
-	static Integer[] count;
+	static int N, M, B, min, max, map[][], time, lastMax;
 	static StringTokenizer st;
 	static StringBuilder sb = new StringBuilder();
 
@@ -22,70 +21,48 @@ public class Main {
 		B = Integer.parseInt(st.nextToken());
 
 		map = new int[N][M];
-		count = new Integer[257];
+		min = Integer.MAX_VALUE;
+		max = Integer.MIN_VALUE;
 
 		for (int n = 0; n < N; n++) {
 			st = new StringTokenizer(br.readLine());
 			for (int m = 0; m < M; m++) {
-				map[n][m] = Integer.parseInt(st.nextToken());
+				int tmp = Integer.parseInt(st.nextToken());
+				map[n][m] = tmp;
+				max = Math.max(max, tmp);
+				min = Math.min(min, tmp);
 			}
 		}
-
 		flat();
-		System.out.println(time + " " + max);
+		System.out.println(time + " " + lastMax);
 	}
 
 	public static void flat() {
-		time = 0;
-		while (true) {
-			max = 0;
-			int maxCount = 0;
+		time = Integer.MAX_VALUE;
 
-			for (int n = 0; n < N; n++) {
-				for (int m = 0; m < M; m++) {
-					if (map[n][m] > max) {
-						max = map[n][m];
-						maxCount = 0;
-					}
-					if (map[n][m] == max)
-						maxCount++;
-				}
-			}
-			if (maxCount == N * M)
-				break;
+		for (int i = min; i <= max; i++) {
+			int curTime = 0;
+            int inventory = B;
 
-			if (max == 256)
-				decreaseH(max);
-			else if (maxCount > N * M / 2) {
-				if (N * M - maxCount <= B)
-					increaseH(max);
-				else
-					decreaseH(max);
-			} else {
-				decreaseH(max);
-			}
-		}
-	}
+            for (int j = 0; j < N; j++) {
+                for (int k = 0; k < M; k++) {
+                    int diff = map[j][k] - i;
 
-	private static void increaseH(int max) {
-		for (int n = 0; n < N; n++) {
-			for (int m = 0; m < M; m++) {
-				if (map[n][m] != max) {
-					map[n][m]++;
-					time += 1;
-				}
-			}
-		}
-	}
-
-	private static void decreaseH(int max) {
-		for (int n = 0; n < N; n++) {
-			for (int m = 0; m < M; m++) {
-				if (map[n][m] == max) {
-					map[n][m]--;
-					time += 2;
-				}
-			}
+                    if(diff > 0) { 
+                        curTime += Math.abs(diff) * 2;
+                        inventory += Math.abs(diff);
+                    }else if(diff < 0){ 
+                        curTime += Math.abs(diff);
+                        inventory -= Math.abs(diff);
+                    }
+                }
+            }
+            if(inventory >= 0) {
+                if(curTime <= time) { 
+                    time = curTime;
+                    lastMax = i;
+                }
+            }
 		}
 	}
 }
