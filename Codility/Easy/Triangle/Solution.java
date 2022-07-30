@@ -5,9 +5,9 @@ class Solution {
         Arrays.sort(A);
 
         for(int i = 0; i < A.length - 2; i++) {
-            int P = A[i];
-            int Q = A[i + 1];
-            int R = A[i + 2];
+            long P = A[i];
+            long Q = A[i + 1];
+            long R = A[i + 2];
 
             if((P + Q) > R && (Q + R) > P && (R + P) > Q)
                 return 1;
